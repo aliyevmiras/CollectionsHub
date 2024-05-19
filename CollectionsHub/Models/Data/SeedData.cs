@@ -17,17 +17,12 @@ namespace CollectionsHub.Models.Data
                 if (!context.Users.Any())
                 {
                     User addUser = new User { Email = "nonexisting@gmail.com", UserName = "nonexistingusername" };
-                    userManager.PasswordHasher.HashPassword(addUser, "_l0-S@yY1$EMB{5237XfiJyP6z6wm<u4RD->5");
+                    string hashedPassword = userManager.PasswordHasher.HashPassword(addUser, "deafultPassword");
+                    addUser.PasswordHash = hashedPassword;
                     var result = await userManager.CreateAsync(addUser);
-                    if(!result.Succeeded)
+                    if (result.Succeeded)
                     {
-                        foreach(var i in result.Errors)
-                        {
-                            Debug.WriteLine("Error:");
-                            Debug.WriteLine(i.Code);
-                            Debug.WriteLine(i.Description);
-                        }
-                        throw new ArgumentException("Password is not valid?");
+                        // add role?
                     }
                     await context.SaveChangesAsync();
 
