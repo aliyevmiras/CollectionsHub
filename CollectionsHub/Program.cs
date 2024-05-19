@@ -1,3 +1,7 @@
+using CollectionsHub.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 namespace CollectionsHub
 {
     public class Program
@@ -7,6 +11,12 @@ namespace CollectionsHub
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationContext")));
+            builder.Services.AddIdentity<User, IdentityRole<Guid>>()
+                            .AddEntityFrameworkStores<ApplicationContext>();
+
+
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
