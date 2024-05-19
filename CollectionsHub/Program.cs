@@ -1,4 +1,5 @@
 using CollectionsHub.Models;
+using CollectionsHub.Models.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,6 +36,8 @@ namespace CollectionsHub
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            SeedData.EnsurePopulated(app.Services);
 
             app.Run();
         }
