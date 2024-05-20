@@ -1,10 +1,12 @@
 ﻿using CollectionsHub.Models;
 using CollectionsHub.Models.Account;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CollectionsHub.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly ApplicationContext _db;
@@ -17,11 +19,14 @@ namespace CollectionsHub.Controllers
             _userManager = userManager;
             _signinManager = signinManager;
         }
+
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginDetails)
         {
@@ -56,6 +61,7 @@ namespace CollectionsHub.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
