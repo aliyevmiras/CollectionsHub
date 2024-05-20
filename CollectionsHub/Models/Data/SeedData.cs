@@ -17,7 +17,7 @@ namespace CollectionsHub.Models.Data
                 if (!context.Users.Any())
                 {
                     User addUser = new User { Email = "nonexisting@gmail.com", UserName = "nonexistingusername" };
-                    string hashedPassword = userManager.PasswordHasher.HashPassword(addUser, "deafultPassword");
+                    string hashedPassword = userManager.PasswordHasher.HashPassword(addUser, "defaultPassword");
                     addUser.PasswordHash = hashedPassword;
                     var result = await userManager.CreateAsync(addUser);
                     if (result.Succeeded)
