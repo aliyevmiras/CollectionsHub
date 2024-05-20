@@ -49,6 +49,13 @@ namespace CollectionsHub.Controllers
             return View(loginDetails);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signinManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
         public IActionResult Register()
         {
             return View();
