@@ -30,7 +30,7 @@ namespace CollectionsHub.Controllers
             return View();
         }
 
-        [Authorize(Roles="Admin")]
+        [Authorize(Roles="Administrator")]
         public IActionResult PageForAdmin()
         {
             return View();
