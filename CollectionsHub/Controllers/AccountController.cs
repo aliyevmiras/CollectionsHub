@@ -1,4 +1,5 @@
-﻿using CollectionsHub.Models;
+﻿using AutoMapper;
+using CollectionsHub.Models;
 using CollectionsHub.Models.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -12,12 +13,14 @@ namespace CollectionsHub.Controllers
         private readonly ApplicationContext _db;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signinManager;
+        private readonly IMapper _mapper;
 
-        public AccountController(ApplicationContext db, UserManager<User> userManager, SignInManager<User> signinManager)
+        public AccountController(ApplicationContext db, UserManager<User> userManager, SignInManager<User> signinManager, IMapper autoMapper)
         {
             _db = db;
             _userManager = userManager;
             _signinManager = signinManager;
+            _mapper = autoMapper;
         }
 
         [AllowAnonymous]
@@ -76,11 +79,10 @@ namespace CollectionsHub.Controllers
                 return View(registerDetails);
             }
 
-            var newUser = new User { UserName = registerDetails.UserName, Email = registerDetails.Email };
-
+            User newUser = _mapper.Map<User>(registerDetails);
             var signupResult = await _userManager.CreateAsync(newUser, registerDetails.Password);
 
-            if(signupResult.Succeeded)
+            if (signupResult.Succeeded)
             {
                 await _signinManager.SignInAsync(newUser, isPersistent: false);
                 return RedirectToAction("Index", "Home");

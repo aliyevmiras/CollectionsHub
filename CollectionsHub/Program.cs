@@ -16,8 +16,7 @@ namespace CollectionsHub
             builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationContext")));
             builder.Services.AddIdentity<User, IdentityRole<Guid>>()
                             .AddEntityFrameworkStores<ApplicationContext>();
-
-
+            builder.Services.AddAutoMapper(typeof(Program));
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
