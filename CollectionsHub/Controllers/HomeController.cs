@@ -1,4 +1,5 @@
 using CollectionsHub.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -14,6 +15,23 @@ namespace CollectionsHub.Controllers
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult PageForAll()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public IActionResult PageForAuthenticated()
+        {
+            return View();
+        }
+
+        [Authorize(Roles="Admin")]
+        public IActionResult PageForAdmin()
         {
             return View();
         }
