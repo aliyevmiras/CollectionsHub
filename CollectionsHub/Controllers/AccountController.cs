@@ -82,13 +82,17 @@ namespace CollectionsHub.Controllers
             User newUser = _mapper.Map<User>(registerDetails);
             var signupResult = await _userManager.CreateAsync(newUser, registerDetails.Password);
 
-            if (signupResult.Succeeded)
+            if (!signupResult.Succeeded)
             {
-                await _signinManager.SignInAsync(newUser, isPersistent: false);
-                return RedirectToAction("Index", "Home");
+                foreach (var error in signupResult.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+                return View(registerDetails);
             }
 
-            return View(registerDetails);
+            await _signinManager.SignInAsync(newUser, isPersistent: false);
+            return RedirectToAction("Index", "Home");
         }
     }
 }
