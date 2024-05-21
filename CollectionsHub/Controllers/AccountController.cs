@@ -4,6 +4,7 @@ using CollectionsHub.Models.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace CollectionsHub.Controllers
 {
@@ -40,21 +41,22 @@ namespace CollectionsHub.Controllers
 
             var user = await _userManager.FindByEmailAsync(loginDetails.Email);
 
+
             if (user == null)
             {
-                return View();
+                ModelState.AddModelError("", "Invalid email or password");
+                return View(loginDetails);
             }
 
             var signinResult = await _signinManager.PasswordSignInAsync(user.UserName, loginDetails.Password, false, false);
             
-
-
-            if (signinResult.Succeeded)
+            if (!signinResult.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                ModelState.AddModelError("", "Invalid email or password");
+                return View(loginDetails);
             }
 
-            return View(loginDetails);
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
