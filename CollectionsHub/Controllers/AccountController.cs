@@ -66,5 +66,27 @@ namespace CollectionsHub.Controllers
         {
             return View();
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel registerDetails)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(registerDetails);
+            }
+
+            var newUser = new User { UserName = registerDetails.UserName, Email = registerDetails.Email };
+
+            var signupResult = await _userManager.CreateAsync(newUser, registerDetails.Password);
+
+            if(signupResult.Succeeded)
+            {
+                await _signinManager.SignInAsync(newUser, isPersistent: false);
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(registerDetails);
+        }
     }
 }
