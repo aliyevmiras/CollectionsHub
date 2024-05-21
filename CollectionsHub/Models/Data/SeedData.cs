@@ -14,18 +14,25 @@ namespace CollectionsHub.Models.Data
             {
                 UserManager<User> userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
                 ApplicationContext context = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+                RoleManager<IdentityRole<Guid>> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+
+                if(!context.Roles.Any())
+                {
+                    var result = await roleManager.CreateAsync(new IdentityRole<Guid>("Administrator"));
+                }
+
+
                 if (!context.Users.Any())
                 {
-                    User addUser = new User { Email = "nonexisting@gmail.com", UserName = "nonexistingusername" };
-                    string hashedPassword = userManager.PasswordHasher.HashPassword(addUser, "defaultPassword");
+                    User addUser = new User { Email = "admin@gmail.com", UserName = "admin" };
+                    string hashedPassword = userManager.PasswordHasher.HashPassword(addUser, "admin");
                     addUser.PasswordHash = hashedPassword;
                     var result = await userManager.CreateAsync(addUser);
                     if (result.Succeeded)
                     {
-                        // add role?
+                        await userManager.AddToRoleAsync(addUser, "Administrator");
                     }
                     await context.SaveChangesAsync();
-
                 }
             }
 
