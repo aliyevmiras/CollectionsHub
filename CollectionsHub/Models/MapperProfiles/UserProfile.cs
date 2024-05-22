@@ -8,6 +8,8 @@ namespace CollectionsHub.Models.MapperProfiles
         public UserProfile() 
         {
             CreateMap<RegisterViewModel, User>();
+
+            CreateMap<User, UserInfoViewModel>();
         }
     }
 }

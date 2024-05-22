@@ -25,6 +25,17 @@ namespace CollectionsHub.Controllers
             _mapper = autoMapper;
         }
 
+
+        [Authorize]
+        public async Task<IActionResult> Info()
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            UserInfoViewModel viewModel = _mapper.Map<UserInfoViewModel>(currentUser);
+            return View(viewModel);
+        }
+
+
+
         [AllowAnonymous]
         public IActionResult Login(string? returnUrl = null)
         {

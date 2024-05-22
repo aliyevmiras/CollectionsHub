@@ -1,0 +1,13 @@
+﻿@model UserInfoViewModel
+
+@{
+    ViewData["Title"] = "User info page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">User info page</h1>
+</div>
+
+<p>Username: @Model.UserName</p>
+<p>Email: @Model.Email</p>
+<p>Registration date: @Model.RegistrationDate UTC</p>
