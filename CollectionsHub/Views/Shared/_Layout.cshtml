@@ -23,6 +23,18 @@
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
+                        <li class="nav-item me-auto">
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="PageForAll">Page for all</a>
+                        </li>
+
+                        <li class="nav-item me-auto">
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="PageForAuthenticated">Page for authenticated</a>
+                        </li>
+
+                        <li class="nav-item me-auto">
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="PageForAdmin">Page for admins</a>
+                        </li>
+
                         @await Html.PartialAsync("_UserPanelPartial");
 
                     </ul>
