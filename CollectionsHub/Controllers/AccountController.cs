@@ -61,6 +61,8 @@ namespace CollectionsHub.Controllers
 
             //return RedirectToAction("Index", "Home");
 
+            user.LastLoginDate = DateTime.UtcNow;
+            await _userManager.UpdateAsync(user);
 
             return RedirectToLocal(returnUrl);
         }
@@ -100,6 +102,9 @@ namespace CollectionsHub.Controllers
             }
 
             await _signinManager.SignInAsync(newUser, isPersistent: false);
+            newUser.LastLoginDate = DateTime.UtcNow;
+            await _userManager.UpdateAsync(newUser);
+
             return RedirectToAction("Index", "Home");
         }
 
