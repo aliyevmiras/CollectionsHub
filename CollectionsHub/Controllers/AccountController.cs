@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CollectionsHub.Infrastructure;
 using CollectionsHub.Models;
 using CollectionsHub.Models.Account;
 using Microsoft.AspNetCore.Authorization;
@@ -59,11 +60,7 @@ namespace CollectionsHub.Controllers
                 return View(loginDetails);
             }
 
-            //return RedirectToAction("Index", "Home");
-
-            user.LastLoginDate = DateTime.UtcNow;
-            await _userManager.UpdateAsync(user);
-
+            await _userManager.UpdateLastLoginDate(user);
             return RedirectToLocal(returnUrl);
         }
 
@@ -102,8 +99,8 @@ namespace CollectionsHub.Controllers
             }
 
             await _signinManager.SignInAsync(newUser, isPersistent: false);
-            newUser.LastLoginDate = DateTime.UtcNow;
-            await _userManager.UpdateAsync(newUser);
+
+            await _userManager.UpdateLastLoginDate(newUser);
 
             return RedirectToAction("Index", "Home");
         }
