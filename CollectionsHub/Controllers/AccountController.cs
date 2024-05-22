@@ -25,15 +25,18 @@ namespace CollectionsHub.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Login()
+        public IActionResult Login(string? returnUrl = null)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel loginDetails)
+        public async Task<IActionResult> Login(LoginViewModel loginDetails, string? returnUrl = null)
         {
+            ViewBag.ReturnUrl = returnUrl;
+
             if (!ModelState.IsValid)
             {
                 return View(loginDetails);
@@ -56,7 +59,10 @@ namespace CollectionsHub.Controllers
                 return View(loginDetails);
             }
 
-            return RedirectToAction("Index", "Home");
+            //return RedirectToAction("Index", "Home");
+
+
+            return RedirectToLocal(returnUrl);
         }
 
         [HttpPost]
@@ -95,6 +101,18 @@ namespace CollectionsHub.Controllers
 
             await _signinManager.SignInAsync(newUser, isPersistent: false);
             return RedirectToAction("Index", "Home");
+        }
+
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            } 
+            else
+            {
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
         }
     }
 }

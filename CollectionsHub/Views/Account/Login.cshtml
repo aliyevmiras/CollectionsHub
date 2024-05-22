@@ -8,7 +8,7 @@
     <h1 class="display-4">Login page</h1>
 </div>
 
-<form asp-controller="Account" asp-action="Login" method="post">
+<form asp-controller="Account" asp-action="Login" method="post" asp-route-returnUrl="@ViewBag.ReturnUrl">
 
     <div class="validation-summary" asp-validation-summary="All"></div>
 
