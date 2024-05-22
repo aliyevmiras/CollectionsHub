@@ -38,7 +38,7 @@
                         <li class="nav-item">
                             @if(SignInManager.IsSignedIn(User))
                             {
-                                <form method="post" asp-controller="Account" asp-action="Logout">
+                                <form method="post" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()">
                                     <button type="submit" class="nav-link btn btn-link">Log out</button>
                                 </form>
                             }
