@@ -1,0 +1,20 @@
+﻿<li class="nav-item">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <a class="nav-link text-dark" asp-controller="Account" asp-action="Info">Hello, @User?.Identity?.Name</a>
+
+    }
+    else
+    {
+        <a class="nav-link text-dark" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()">Have an account? Log in</a>
+    }
+</li>
+
+<li class="nav-item">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <form method="post" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()">
+            <button type="submit" class="nav-link btn btn-link">Log out</button>
+        </form>
+    }
+</li>
