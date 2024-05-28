@@ -45,7 +45,10 @@ namespace CollectionsHub.Models.Data
                     addUser.PasswordHash = hashedPassword;
                     var result = await userManager.CreateAsync(addUser);
 
-                    context.Collections.Add(new Collection { Author = addUser, Name = "New collection", Description = "New description", Category = addCategory});
+                    var addCollection = new Collection { Author = addUser, Name = "New collection", Description = "New description", Category = addCategory };
+                    context.Collections.Add(addCollection);
+
+                    context.Items.Add(new Item { Name = "TestItem", Collection = addCollection});
 
                     await context.SaveChangesAsync();
                 }

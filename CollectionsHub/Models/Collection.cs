@@ -12,5 +12,7 @@
 
         public Guid AuthorId { get; set; }
         public required virtual User Author { get; set; }
+
+        public virtual ICollection<Item> Items { get; } = new List<Item>();
     }
 }

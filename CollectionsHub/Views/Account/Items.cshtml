@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Item>
+
+@{
+    ViewData["Title"] = $"Item of {ViewBag.CollectionName} page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Items of @ViewBag.CollectionName collection</h1>
+</div>
+
+@if (Model != null || Model?.Count() != 0)
+{
+    <table class="table table-hover">
+        <caption>List of @ViewBag.CollectionName items</caption>
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Collection</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ItemId.ToString()</td>
+                    <td>@item.Name</td>
+                    <td>@item.Collection.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -41,7 +41,12 @@ namespace CollectionsHub.Controllers
             return View(currentUser.Collections.ToList());
         }
 
-
+        public async Task<IActionResult> Items(string collectionId)
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            ViewBag.CollectionName = _db.Collections.Where(c => c.CollectionId == Guid.Parse(collectionId)).FirstOrDefault().Name;
+            return View(_db.Items.Where(i => i.CollectionId == Guid.Parse(collectionId)).Select(i => i));
+        }
 
         [AllowAnonymous]
         public IActionResult Login(string? returnUrl = null)
