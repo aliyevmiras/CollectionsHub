@@ -1,0 +1,35 @@
+﻿@model List<Collection>
+
+@{
+    ViewData["Title"] = "User info page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">User info page</h1>
+</div>
+
+@if (Model != null || Model?.Count() != 0)
+{
+    <table class="table table-hover">
+        <caption>List of user's collections</caption>
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">AuthorId</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var collection in Model)
+            {
+                <tr>
+                    <td>@collection.CollectionId.ToString()</td>
+                    <td>@collection.Name</td>
+                    <td>@(collection.Description == null ? "No description" : collection.Description)</td>
+                    <td>@collection.AuthorId.ToString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

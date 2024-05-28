@@ -9,5 +9,7 @@ namespace CollectionsHub.Models
 
         // using event to fire handler
         public DateTime? LastLoginDate { get; set; }
+
+        public virtual ICollection<Collection> Collections {  get; } = new List<Collection>();
     }
 }

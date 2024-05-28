@@ -34,6 +34,18 @@ namespace CollectionsHub.Models.Data
                     }
                     await context.SaveChangesAsync();
                 }
+
+                if (!context.Collections.Any())
+                {
+                    User addUser = new User { Email = "collectionOwner@gmail.com", UserName = "collectionOwner@gmail.com" };
+                    string hashedPassword = userManager.PasswordHasher.HashPassword(addUser, "collectionOwner@gmail.com");
+                    addUser.PasswordHash = hashedPassword;
+                    var result = await userManager.CreateAsync(addUser);
+
+                    context.Collections.Add(new Collection { Author = addUser, Name = "New collection", Description = "New description"});
+
+                    await context.SaveChangesAsync();
+                }
             }
 
 

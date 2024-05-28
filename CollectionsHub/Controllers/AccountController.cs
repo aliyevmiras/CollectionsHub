@@ -34,6 +34,13 @@ namespace CollectionsHub.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
+        public async Task<IActionResult> Collections()
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            return View(currentUser.Collections.ToList());
+        }
+
 
 
         [AllowAnonymous]
