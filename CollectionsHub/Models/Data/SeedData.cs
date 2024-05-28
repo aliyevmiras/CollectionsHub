@@ -37,12 +37,15 @@ namespace CollectionsHub.Models.Data
 
                 if (!context.Collections.Any())
                 {
+                    Category addCategory = new Category { Title = "TestCategory" };
+                    context.Categories.Add(addCategory);
+
                     User addUser = new User { Email = "collectionOwner@gmail.com", UserName = "collectionOwner@gmail.com" };
                     string hashedPassword = userManager.PasswordHasher.HashPassword(addUser, "collectionOwner@gmail.com");
                     addUser.PasswordHash = hashedPassword;
                     var result = await userManager.CreateAsync(addUser);
 
-                    context.Collections.Add(new Collection { Author = addUser, Name = "New collection", Description = "New description"});
+                    context.Collections.Add(new Collection { Author = addUser, Name = "New collection", Description = "New description", Category = addCategory});
 
                     await context.SaveChangesAsync();
                 }

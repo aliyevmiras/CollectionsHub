@@ -6,7 +6,10 @@
         public required string Name { get; set; }
         public string? Description { get; set; }
         
-        // public Guid CategoryId { get; set; } 
+        public Guid CategoryId { get; set; } 
+
+        public required virtual Category Category { get; set; }
+
         public Guid AuthorId { get; set; }
         public required virtual User Author { get; set; }
     }

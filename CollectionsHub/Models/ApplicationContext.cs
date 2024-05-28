@@ -7,6 +7,8 @@ namespace CollectionsHub.Models
     public class ApplicationContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
     {
         public DbSet<Collection> Collections { get; set; }
+        public DbSet<Category> Categories { get; set; }
+
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
             //Database.EnsureDeleted();
