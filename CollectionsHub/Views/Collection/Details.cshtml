@@ -1,7 +1,15 @@
-﻿@{
-    ViewData["Title"] = $"Collection details";
+﻿@model Collection
+
+@{
+    ViewData["Title"] = $"Collection {Model.Name} details";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Collection details</h1>
+    <h1 class="display-4">Collection @Model.Name details</h1>
 </div>
+
+<p>Name: @Model.Name</p>
+<p>Description: @Model.Description</p>
+<p>Category: @Model.Category.Title</p>
+
+<a class="btn btn-primary" asp-action="Items" asp-route-collectionId="@Model.CollectionId">List of items</a>
