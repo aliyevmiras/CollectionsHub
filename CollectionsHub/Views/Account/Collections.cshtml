@@ -26,7 +26,7 @@
             {
                 <tr>
                     <td>@collection.CollectionId.ToString()</td>
-                    <td><a asp-action="Items" asp-route-collectionId="@collection.CollectionId.ToString()">@collection.Name</a></td>
+                    <td><a asp-action="Details" asp-controller="Collection" asp-route-collectionId="@collection.CollectionId.ToString()">@collection.Name</a></td>
                     <td>@(collection.Description == null ? "No description" : collection.Description)</td>
                     <td>@collection.Category.Title</td>
                     <td>@collection.AuthorId.ToString()</td>

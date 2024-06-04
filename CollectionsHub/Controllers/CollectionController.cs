@@ -6,7 +6,7 @@ namespace CollectionsHub.Controllers
 {
     public class CollectionController : Controller
     {
-        public ActionResult Details(Guid id)
+        public ActionResult Details(Guid collectionId)
         {
             return View();
         }
